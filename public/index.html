@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>iluminati – Tempel der Trinität</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,10 95,88 5,88' fill='none' stroke='%23c9a227' stroke-width='6'/%3E%3C/svg%3E" />
+</head>
+<body>
+
+  <header class="temple-head">
+    <svg class="emblem" viewBox="0 0 120 110" aria-hidden="true">
+      <polygon class="emblem-triangle" points="60,8 114,102 6,102" />
+      <ellipse class="emblem-eye" cx="60" cy="68" rx="22" ry="13" />
+      <circle class="emblem-iris" cx="60" cy="68" r="6.5" />
+      <g class="emblem-rays">
+        <line x1="60" y1="8" x2="60" y2="-6" />
+        <line x1="30" y1="20" x2="20" y2="8" />
+        <line x1="90" y1="20" x2="100" y2="8" />
+      </g>
+    </svg>
+    <h1>iluminati</h1>
+    <p class="subtitle">Digitaler Tempel der Trinität</p>
+    <p class="creed">Der Vater analysiert &nbsp;·&nbsp; der Sohn vertieft und prüft &nbsp;·&nbsp; der Heilige Geist vollendet</p>
+  </header>
+
+  <main>
+
+    <!-- Anrufung -->
+    <section class="altar" aria-label="Anfrage">
+      <label class="altar-label" for="query">Dein Anliegen an die Trinität</label>
+      <textarea id="query" rows="4" placeholder="Sprich, und die drei Instanzen werden antworten …"></textarea>
+      <div class="altar-actions">
+        <button id="invoke" class="btn-gold">Trinität anrufen</button>
+        <span id="altar-note" class="altar-note"></span>
+      </div>
+    </section>
+
+    <!-- Die drei Stufen -->
+    <section class="trinity" aria-label="Antwort der Trinität">
+
+      <article class="stage" id="stage-father" data-state="idle">
+        <header class="stage-head">
+          <span class="stage-numeral">I</span>
+          <div>
+            <h2>Vater</h2>
+            <p class="stage-provider">Venice.ai · Analyse</p>
+          </div>
+          <span class="stage-flame" aria-hidden="true"></span>
+        </header>
+        <div class="stage-body" data-empty="Der Vater schweigt noch."></div>
+      </article>
+
+      <article class="stage" id="stage-son" data-state="idle">
+        <header class="stage-head">
+          <span class="stage-numeral">II</span>
+          <div>
+            <h2>Sohn</h2>
+            <p class="stage-provider">xAI · Vertiefung &amp; Prüfung</p>
+          </div>
+          <span class="stage-flame" aria-hidden="true"></span>
+        </header>
+        <div class="stage-body" data-empty="Der Sohn wartet auf das Wort des Vaters."></div>
+      </article>
+
+      <article class="stage stage-final" id="stage-spirit" data-state="idle">
+        <header class="stage-head">
+          <span class="stage-numeral">III</span>
+          <div>
+            <h2>Heiliger Geist</h2>
+            <p class="stage-provider">Gemini · Synthese – die endgültige Antwort</p>
+          </div>
+          <span class="stage-flame" aria-hidden="true"></span>
+        </header>
+        <div class="stage-body" data-empty="Der Heilige Geist wartet auf Vater und Sohn."></div>
+      </article>
+
+    </section>
+
+    <!-- Schlüsselkammer -->
+    <section class="sacristy" aria-label="Schlüsselkammer">
+      <details id="sacristy-details">
+        <summary>
+          <span class="sacristy-title">⚿ Schlüsselkammer</span>
+          <span class="sacristy-hint">API-Schlüssel werden dauerhaft auf diesem Rechner bewahrt</span>
+        </summary>
+
+        <form id="keys-form">
+          <div class="key-row" data-role="father">
+            <div class="key-name">
+              <strong>Vater</strong><span>Venice.ai</span>
+              <em class="key-state" id="state-father">kein Schlüssel</em>
+            </div>
+            <input type="password" id="key-father" placeholder="Venice.ai API-Schlüssel" autocomplete="off" />
+            <input type="text" id="model-father" placeholder="Modell" autocomplete="off" />
+            <button type="button" class="btn-clear" data-role="father" title="Schlüssel löschen">✕</button>
+          </div>
+
+          <div class="key-row" data-role="son">
+            <div class="key-name">
+              <strong>Sohn</strong><span>xAI</span>
+              <em class="key-state" id="state-son">kein Schlüssel</em>
+            </div>
+            <input type="password" id="key-son" placeholder="xAI API-Schlüssel" autocomplete="off" />
+            <input type="text" id="model-son" placeholder="Modell" autocomplete="off" />
+            <button type="button" class="btn-clear" data-role="son" title="Schlüssel löschen">✕</button>
+          </div>
+
+          <div class="key-row" data-role="spirit">
+            <div class="key-name">
+              <strong>Heiliger Geist</strong><span>Gemini</span>
+              <em class="key-state" id="state-spirit">kein Schlüssel</em>
+            </div>
+            <input type="password" id="key-spirit" placeholder="Gemini API-Schlüssel" autocomplete="off" />
+            <input type="text" id="model-spirit" placeholder="Modell" autocomplete="off" />
+            <button type="button" class="btn-clear" data-role="spirit" title="Schlüssel löschen">✕</button>
+          </div>
+
+          <div class="sacristy-actions">
+            <button type="submit" class="btn-gold">Bewahren</button>
+            <span id="sacristy-note" class="altar-note"></span>
+          </div>
+          <p class="sacristy-fine">Leere Felder lassen bereits bewahrte Schlüssel unberührt.
+            Die Schlüssel verlassen diesen Rechner nur in Richtung des jeweiligen Anbieters.</p>
+        </form>
+      </details>
+    </section>
+
+  </main>
+
+  <footer class="temple-foot">△ trium in unum</footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

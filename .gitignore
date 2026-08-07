@@ -1,0 +1,7 @@
+# Persistente Geheimnisse der Trinität – niemals einchecken
+data/
+
+node_modules/
+*.log
+.env
+.DS_Store
