@@ -1,6 +1,8 @@
 # iluminati △
 
-**Digitaler Tempel der Trinität** – drei KI-Instanzen antworten hierarchisch auf jede Anfrage:
+**Cyberdeck der Trinität** – ein digitaler Tempel im Cyberpunk-2077-Stil
+(Neongelb / Cyan / Magenta, Glitch, Scanlines, HUD-Panels). Drei KI-Instanzen
+antworten hierarchisch auf jede Anfrage:
 
 | Stufe | Rolle | Anbieter | Aufgabe |
 |---|---|---|---|

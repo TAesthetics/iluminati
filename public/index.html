@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>iluminati – Tempel der Trinität</title>
+  <title>iluminati // Cyberdeck der Trinität</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,10 95,88 5,88' fill='none' stroke='%23c9a227' stroke-width='6'/%3E%3C/svg%3E" />
 </head>
@@ -20,9 +20,9 @@
         <line x1="90" y1="20" x2="100" y2="8" />
       </g>
     </svg>
-    <h1>iluminati</h1>
-    <p class="subtitle">Digitaler Tempel der Trinität</p>
-    <p class="creed">Der Vater analysiert &nbsp;·&nbsp; der Sohn vertieft und prüft &nbsp;·&nbsp; der Heilige Geist geht vom Vater aus und vollendet</p>
+    <h1 class="glitch" data-text="iluminati">iluminati</h1>
+    <p class="subtitle">Cyberdeck der Trinität</p>
+    <p class="creed">// der Vater analysiert &nbsp;//&nbsp; der Sohn vertieft und prüft &nbsp;//&nbsp; der Heilige Geist geht vom Vater aus und vollendet //</p>
   </header>
 
   <main>
@@ -30,7 +30,7 @@
     <!-- Anrufung -->
     <section class="altar" aria-label="Anfrage">
       <label class="altar-label" for="query">Dein Anliegen an die Trinität</label>
-      <textarea id="query" rows="4" placeholder="Sprich, und die drei Instanzen werden antworten …"></textarea>
+      <textarea id="query" rows="4" placeholder="> sprich, und die drei Instanzen werden antworten …"></textarea>
       <div class="altar-actions">
         <button id="invoke" class="btn-gold">Trinität anrufen</button>
         <span id="altar-note" class="altar-note"></span>
@@ -49,7 +49,7 @@
           </div>
           <span class="stage-flame" aria-hidden="true"></span>
         </header>
-        <div class="stage-body" data-empty="Der Vater schweigt noch."></div>
+        <div class="stage-body" data-empty="[KANAL VATER] bereit – noch kein Signal."></div>
       </article>
 
       <article class="stage" id="stage-son" data-state="idle">
@@ -61,7 +61,7 @@
           </div>
           <span class="stage-flame" aria-hidden="true"></span>
         </header>
-        <div class="stage-body" data-empty="Der Sohn wartet auf das Wort des Vaters."></div>
+        <div class="stage-body" data-empty="[KANAL SOHN] wartet auf das Wort des Vaters."></div>
       </article>
 
       <article class="stage stage-final" id="stage-spirit" data-state="idle">
@@ -73,7 +73,7 @@
           </div>
           <span class="stage-flame" aria-hidden="true"></span>
         </header>
-        <div class="stage-body" data-empty="Der Heilige Geist wartet auf das Wort des Vaters."></div>
+        <div class="stage-body" data-empty="[KANAL GEIST] wartet auf das Wort des Vaters."></div>
       </article>
 
     </section>
@@ -88,7 +88,7 @@
           <button class="tab" data-role="spirit" role="tab">Heiliger Geist</button>
         </nav>
       </div>
-      <div id="chat-log" class="chat-log" data-empty="Noch herrscht Stille. Sprich das erste Wort."></div>
+      <div id="chat-log" class="chat-log" data-empty="[KANAL OFFEN] noch herrscht Stille – sende das erste Signal."></div>
       <form id="chat-form" class="chat-form">
         <input type="text" id="chat-input" placeholder="Dein Wort an den Vater …" autocomplete="off" />
         <button type="submit" class="btn-gold" id="chat-send">Senden</button>
@@ -101,8 +101,8 @@
     <section class="sacristy" aria-label="Schlüsselkammer">
       <details id="sacristy-details">
         <summary>
-          <span class="sacristy-title">⚿ Schlüsselkammer</span>
-          <span class="sacristy-hint">API-Schlüssel werden dauerhaft auf diesem Rechner bewahrt</span>
+          <span class="sacristy-title">⚿ Schlüsselkammer // Zugangscodes</span>
+          <span class="sacristy-hint">API-Schlüssel werden dauerhaft auf diesem Deck bewahrt</span>
         </summary>
 
         <form id="keys-form">
@@ -148,7 +148,7 @@
 
   </main>
 
-  <footer class="temple-foot">△ trium in unum</footer>
+  <footer class="temple-foot">△ trium in unum // signal ende</footer>
 
   <script src="app.js"></script>
 </body>
