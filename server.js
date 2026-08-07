@@ -8,7 +8,7 @@ import { join, extname, normalize } from "node:path";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadStore, saveStore, clearKey, publicView, ROLES } from "./src/keystore.js";
-import { invokeTrinity, STAGES, stageInfo } from "./src/trinity.js";
+import { invokeTrinity, chatWithRole, STAGES, stageInfo } from "./src/trinity.js";
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const PUBLIC_DIR = join(ROOT, "public");
@@ -101,6 +101,49 @@ async function handleInvoke(req, res) {
   res.end();
 }
 
+// POST /api/chat – Zwiegespräch mit einer einzelnen Instanz.
+// Erwartet { role, messages: [{ role: "user"|"assistant", content }] }.
+async function handleChat(req, res) {
+  let body;
+  try {
+    body = await readBody(req);
+  } catch {
+    return sendJson(res, 400, { error: "Ungültige Anfrage." });
+  }
+  const role = body.role;
+  if (!ROLES.includes(role)) return sendJson(res, 400, { error: "Unbekannte Rolle." });
+
+  const messages = (Array.isArray(body.messages) ? body.messages : [])
+    .filter(
+      (m) =>
+        (m?.role === "user" || m?.role === "assistant") &&
+        typeof m?.content === "string" &&
+        m.content.trim()
+    )
+    .map((m) => ({ role: m.role, content: m.content }))
+    .slice(-24);
+  if (!messages.length || messages[messages.length - 1].role !== "user") {
+    return sendJson(res, 400, { error: "Die Anfrage ist leer." });
+  }
+
+  const store = loadStore();
+  if (!store.keys[role]) {
+    return sendJson(res, 409, {
+      error: "Es fehlen API-Schlüssel.",
+      missing: [stageInfo(role).name],
+    });
+  }
+
+  const abort = new AbortController();
+  req.on("close", () => abort.abort());
+  try {
+    const reply = await chatWithRole(role, store, messages, abort.signal);
+    return sendJson(res, 200, { reply });
+  } catch (err) {
+    return sendJson(res, 502, { error: err.message });
+  }
+}
+
 const server = createServer(async (req, res) => {
   const path = new URL(req.url, "http://x").pathname;
 
@@ -127,6 +170,10 @@ const server = createServer(async (req, res) => {
 
   if (path === "/api/invoke" && req.method === "POST") {
     return handleInvoke(req, res);
+  }
+
+  if (path === "/api/chat" && req.method === "POST") {
+    return handleChat(req, res);
   }
 
   if (path.startsWith("/api/")) {

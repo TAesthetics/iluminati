@@ -224,6 +224,110 @@ textarea:focus, input:focus {
 
 .stage-final .stage-body { font-size: 1.05rem; }
 
+.stage[data-state="error"] .stage-body {
+  color: #c96a5a;
+  font-style: italic;
+}
+
+/* ─── Zwiegespräch ─────────────────────────────────── */
+
+.dialogue {
+  background: linear-gradient(180deg, rgba(201,162,39,0.05), transparent 40%), var(--stone);
+  border: 1px solid var(--edge);
+  border-top: 2px solid var(--gold-dim);
+  border-radius: 6px;
+  padding: 1.6rem;
+  margin-bottom: 2.4rem;
+}
+
+.dialogue-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.dialogue-head .altar-label { margin-bottom: 0; }
+
+.dialogue-tabs { display: flex; gap: 0.5rem; }
+
+.tab {
+  background: var(--night);
+  border: 1px solid var(--edge);
+  border-radius: 4px;
+  color: var(--text-dim);
+  font-family: var(--serif);
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+}
+.tab:hover { border-color: var(--gold-soft); color: var(--text); }
+.tab.active {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(201, 162, 39, 0.08);
+}
+
+.chat-log {
+  background: var(--night);
+  border: 1px solid var(--edge);
+  border-radius: 4px;
+  min-height: 8rem;
+  max-height: 24rem;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 0.9rem;
+}
+.chat-log:empty::before {
+  content: attr(data-empty);
+  color: var(--text-dim);
+  font-style: italic;
+  margin: auto;
+}
+
+.msg {
+  max-width: 85%;
+  padding: 0.55rem 0.9rem;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.msg.user {
+  align-self: flex-end;
+  background: rgba(201, 162, 39, 0.12);
+  border: 1px solid var(--gold-dim);
+}
+.msg.assistant {
+  align-self: flex-start;
+  background: var(--stone);
+  border: 1px solid var(--edge);
+}
+.msg .msg-name {
+  display: block;
+  color: var(--gold-soft);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+.msg.pending { color: var(--text-dim); font-style: italic; }
+
+.chat-form {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+}
+.chat-form input { flex: 1; }
+.chat-form .btn-clear { flex-shrink: 0; width: 2.2rem; }
+
+#chat-note { margin-top: 0.6rem; }
+
 /* ─── Schlüsselkammer ──────────────────────────────── */
 
 .sacristy { margin-bottom: 3rem; }

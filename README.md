@@ -5,11 +5,15 @@
 | Stufe | Rolle | Anbieter | Aufgabe |
 |---|---|---|---|
 | I | **Vater** | [Venice.ai](https://venice.ai) | analysiert die Anfrage grundlegend |
-| II | **Sohn** | [xAI](https://x.ai) | vertieft und prüft die Analyse des Vaters |
-| III | **Heiliger Geist** | [Gemini](https://ai.google.dev) | synthetisiert die endgültige Antwort |
+| II | **Sohn** | [xAI](https://x.ai) | geht vom Vater aus, vertieft und prüft seine Analyse |
+| III | **Heiliger Geist** | [Gemini](https://ai.google.dev) | geht **allein vom Vater** aus und vollendet die endgültige Antwort |
 
-Jede Anfrage durchläuft die Kette **Vater → Sohn → Heiliger Geist**; die Oberfläche
-zeigt alle drei Stufen, sobald sie vollendet sind.
+Bei der **Anrufung** spricht zuerst der Vater; Sohn und Heiliger Geist gehen beide
+von seinem Wort aus und antworten parallel. Fällt eine der beiden Instanzen aus,
+vollendet die andere dennoch. Die Oberfläche zeigt jede Stufe, sobald sie spricht.
+
+Im **Zwiegespräch** kann außerdem mit jeder Instanz einzeln gesprochen werden –
+mit eigenem Gesprächsverlauf je Instanz (im Browser bewahrt).
 
 ## Start
 
@@ -59,5 +63,6 @@ jede Stufe erscheint, sobald sie vollendet ist.
 | `POST` | `/api/keys` | Schlüssel/Modelle speichern (leere Felder bleiben unberührt) |
 | `DELETE` | `/api/keys/:role` | einzelnen Schlüssel löschen (`father`, `son`, `spirit`) |
 | `POST` | `/api/invoke` | `{ "query": "…" }` → NDJSON-Strom der drei Stufen |
+| `POST` | `/api/chat` | `{ "role": "father\|son\|spirit", "messages": [{ "role": "user\|assistant", "content": "…" }] }` → `{ "reply": "…" }` – Zwiegespräch mit einer einzelnen Instanz |
 
 *△ trium in unum*
