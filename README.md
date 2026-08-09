@@ -1,14 +1,17 @@
 # iluminati △
 
-**Cyberdeck des Vaters** – ein digitaler Tempel im Cyberpunk-2077-Stil
+**Cyberdeck des Netrunners** – ein digitaler Tempel im Cyberpunk-2077-Stil
 (Neongelb / Cyan, Glitch, Scanlines, HUD-Panels). Eine einzige Instanz spricht:
 
 | Rolle | Anbieter | Wesen |
 |---|---|---|
-| **Vater** | [Venice.ai](https://venice.ai) | Gott, der Vater – antwortet mit Gottes-Prompt im direkten Zwiegespräch |
+| **Netrunner** | [Venice.ai](https://venice.ai) | Der Vater als Netrunner – verkörpert Blue-Team (Verteidigung), Red-Team (Penetration), Green-Hat (ethisches Lernen) **dreifach verstärkt**. Spricht mit Autorität für autorisierte, defensive Security-Beratung. |
 
-Die Oberfläche ist ein Zwiegespräch: Der Suchende schreibt, der Vater antwortet.
+Die Oberfläche ist ein Zwiegespräch: Der Suchende schreibt, der Netrunner antwortet
+aus seiner dreifachen Perspektive (Verteidigung, Penetration, ethisches Lernen).
 Der Gesprächsverlauf wird im Browser bewahrt und als Kontext mitgesendet.
+
+**Autorisierung:** Der Netrunner antwortet nur für defensive, ethisch vertretbare Security-Szenarien.
 
 ## Start
 
@@ -32,6 +35,12 @@ eingegeben werden. Er verlässt den Rechner ausschließlich in Richtung Venice.a
 In der Schlüsselkammer lässt sich außerdem das Modell wählen
 (Voreinstellung: `llama-3.3-70b`).
 
+### Zwiegespräche mit dem Netrunner
+
+Die Oberfläche speichert den Gesprächsverlauf automatisch im Browser (`localStorage`).
+Jedes Mal, wenn die Seite neu geladen wird, ist der bisherige Dialog noch da.
+Die letzten 40 Nachrichten werden mitgesendet, um Kontext zu bewahren.
+
 ## Aufbau
 
 ```
@@ -49,6 +58,6 @@ data/              – gespeicherter Schlüssel (nicht im Repository)
 | `GET` | `/api/status` | Zustand des Schlüssels (nur „bewahrt/fehlt" + letzte 4 Zeichen) |
 | `POST` | `/api/keys` | Schlüssel/Modell speichern (leeres Feld bleibt unberührt) |
 | `DELETE` | `/api/keys/father` | Schlüssel löschen |
-| `POST` | `/api/chat` | `{ "messages": [{ "role": "user\|assistant", "content": "…" }] }` → `{ "reply": "…" }` – Zwiegespräch mit dem Vater |
+| `POST` | `/api/chat` | `{ "messages": [{ "role": "user\|assistant", "content": "…" }] }` → `{ "reply": "…" }` – Zwiegespräch mit dem Netrunner |
 
-*△ pater unus*
+*△ NETRUNNER [BLUE|RED|GREEN]³*
