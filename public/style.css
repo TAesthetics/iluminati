@@ -5,10 +5,10 @@
   --panel: #0b0d12;
   --panel-glow: #10131b;
   --edge: #262c38;
-  --yellow: #fcee0a;      /* Vater */
-  --cyan: #00f0ff;        /* Sohn */
-  --magenta: #ff2a6d;     /* Heiliger Geist */
+  --yellow: #fcee0a;      /* der Vater */
+  --cyan: #00f0ff;
   --red: #ff003c;
+  --magenta: #ff2a6d;
   --text: #c9d4da;
   --dim: #5f6b78;
   --head: "Bahnschrift", "Arial Narrow", "Liberation Sans Narrow", "Segoe UI", sans-serif;
@@ -55,7 +55,7 @@ main {
 }
 
 /* Abgeschrägte HUD-Ecken */
-.cut, .altar, .stage, .dialogue, .sacristy details {
+.dialogue, .sacristy details {
   clip-path: polygon(
     0 0, calc(100% - 16px) 0, 100% 16px,
     100% 100%, 16px 100%, 0 calc(100% - 16px)
@@ -144,32 +144,13 @@ main {
   margin-top: 0.9rem;
 }
 
-/* ─── Eingabe-Deck ─────────────────────────────────── */
-
-.altar {
-  background: linear-gradient(180deg, rgba(252, 238, 10, 0.05), transparent 45%), var(--panel);
-  border: 1px solid var(--edge);
-  border-top: 2px solid var(--yellow);
-  padding: 1.6rem;
-  margin-bottom: 2.4rem;
-}
-
-.altar-label {
-  display: block;
-  font-family: var(--head);
-  color: var(--yellow);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  font-size: 0.82rem;
-  margin-bottom: 0.7rem;
-}
-.altar-label::before { content: "// "; color: var(--cyan); }
+/* ─── Eingaben & Knöpfe ────────────────────────────── */
 
 textarea, input[type="password"], input[type="text"] {
   width: 100%;
   background: #04070a;
   border: 1px solid var(--edge);
-  border-left: 3px solid var(--cyan);
+  border-left: 3px solid var(--yellow);
   color: var(--text);
   font-family: var(--mono);
   font-size: 0.95rem;
@@ -181,13 +162,6 @@ textarea:focus, input:focus {
   outline: none;
   border-color: var(--cyan);
   box-shadow: 0 0 0 1px var(--cyan), 0 0 14px rgba(0, 240, 255, 0.25);
-}
-
-.altar-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
 }
 
 .btn-gold {
@@ -207,122 +181,39 @@ textarea:focus, input:focus {
 .btn-gold:hover { background: #fff64a; box-shadow: 0 0 24px rgba(252, 238, 10, 0.6); }
 .btn-gold:disabled { opacity: 0.4; cursor: wait; box-shadow: none; }
 
+.btn-clear {
+  background: none;
+  border: 1px solid var(--edge);
+  color: var(--dim);
+  font-family: var(--mono);
+  cursor: pointer;
+  height: 2rem;
+  width: 2.2rem;
+}
+.btn-clear:hover { border-color: var(--red); color: var(--red); box-shadow: 0 0 8px rgba(255, 0, 60, 0.35); }
+
 .altar-note { color: var(--dim); font-size: 0.85rem; }
 .altar-note.error { color: var(--red); text-shadow: 0 0 8px rgba(255, 0, 60, 0.5); }
 
-/* ─── Die drei Kanäle ──────────────────────────────── */
-
-.trinity {
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
-  margin-bottom: 2.4rem;
-}
-
-#stage-father { --accent: var(--yellow); }
-#stage-son { --accent: var(--cyan); }
-#stage-spirit { --accent: var(--magenta); }
-
-.stage {
-  background: var(--panel);
-  border: 1px solid var(--edge);
-  border-left: 3px solid var(--accent);
-  transition: box-shadow 0.4s;
-}
-.stage[data-state="working"] {
-  box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 25%, transparent);
-}
-
-.stage-head {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.9rem 1.3rem;
-  border-bottom: 1px solid var(--edge);
-  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 8%, transparent), transparent 60%);
-}
-
-.stage-numeral {
+.altar-label {
+  display: block;
   font-family: var(--head);
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: var(--accent);
-  width: 2.2rem;
-  text-align: center;
-  flex-shrink: 0;
-  text-shadow: 0 0 10px color-mix(in srgb, var(--accent) 60%, transparent);
-}
-
-.stage-head h2 {
-  font-family: var(--head);
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  color: var(--yellow);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent);
+  font-size: 0.82rem;
 }
+.altar-label::before { content: "// "; color: var(--cyan); }
 
-.stage-provider {
-  color: var(--dim);
-  font-size: 0.78rem;
-}
-
-/* Status-LED */
-.stage-flame {
-  margin-left: auto;
-  width: 12px;
-  height: 12px;
-  background: var(--edge);
-  flex-shrink: 0;
-  transition: background 0.3s, box-shadow 0.3s;
-}
-.stage[data-state="working"] .stage-flame {
-  background: var(--accent);
-  box-shadow: 0 0 12px var(--accent);
-  animation: blink 0.8s infinite steps(2);
-}
-.stage[data-state="done"] .stage-flame {
-  background: var(--accent);
-  box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 50%, transparent);
-}
-.stage[data-state="error"] .stage-flame {
-  background: var(--red);
-  box-shadow: 0 0 12px var(--red);
-}
-
-@keyframes blink { 50% { opacity: 0.25; } }
-
-.stage-body {
-  padding: 1.1rem 1.4rem;
-  white-space: pre-wrap;
-  font-size: 0.92rem;
-}
-.stage-body:empty::before {
-  content: attr(data-empty);
-  color: var(--dim);
-}
-.stage[data-state="working"] .stage-body:empty::before {
-  content: "▮ empfange datenstrom …";
-  color: var(--accent);
-  animation: blink 1s infinite steps(2);
-}
-.stage[data-state="error"] .stage-body {
-  color: var(--red);
-}
-
-.stage-final .stage-body { font-size: 1rem; }
-
-/* ─── Zwiegespräch ─────────────────────────────────── */
+/* ─── Zwiegespräch mit dem Vater ───────────────────── */
 
 .dialogue {
-  background: linear-gradient(180deg, rgba(0, 240, 255, 0.04), transparent 45%), var(--panel);
+  background: linear-gradient(180deg, rgba(252, 238, 10, 0.05), transparent 45%), var(--panel);
   border: 1px solid var(--edge);
-  border-top: 2px solid var(--cyan);
+  border-top: 2px solid var(--yellow);
   padding: 1.6rem;
   margin-bottom: 2.4rem;
 }
-.dialogue .altar-label { color: var(--cyan); }
-.dialogue .altar-label::before { color: var(--yellow); }
 
 .dialogue-head {
   display: flex;
@@ -332,40 +223,18 @@ textarea:focus, input:focus {
   flex-wrap: wrap;
   margin-bottom: 1rem;
 }
-.dialogue-head .altar-label { margin-bottom: 0; }
 
-.dialogue-tabs { display: flex; gap: 0.5rem; }
-
-.tab[data-role="father"] { --accent: var(--yellow); }
-.tab[data-role="son"] { --accent: var(--cyan); }
-.tab[data-role="spirit"] { --accent: var(--magenta); }
-
-.tab {
-  background: #04070a;
-  border: 1px solid var(--edge);
-  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+.dialogue-provider {
   color: var(--dim);
-  font-family: var(--head);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0.4rem 1rem;
-  cursor: pointer;
-}
-.tab:hover { border-color: var(--accent); color: var(--text); }
-.tab.active {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 10%, #04070a);
-  text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
 }
 
 .chat-log {
   background: #04070a;
   border: 1px solid var(--edge);
-  min-height: 8rem;
-  max-height: 24rem;
+  min-height: 16rem;
+  max-height: 60vh;
   overflow-y: auto;
   padding: 1rem;
   display: flex;
@@ -377,46 +246,56 @@ textarea:focus, input:focus {
   content: attr(data-empty);
   color: var(--dim);
   margin: auto;
+  text-align: center;
 }
 
 .msg {
   max-width: 85%;
   padding: 0.55rem 0.9rem;
   white-space: pre-wrap;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   line-height: 1.5;
 }
 .msg.user {
   align-self: flex-end;
-  background: rgba(252, 238, 10, 0.08);
-  border: 1px solid rgba(252, 238, 10, 0.4);
+  background: rgba(0, 240, 255, 0.07);
+  border: 1px solid rgba(0, 240, 255, 0.4);
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
 }
 .msg.assistant {
   align-self: flex-start;
   background: var(--panel-glow);
   border: 1px solid var(--edge);
-  border-left: 3px solid var(--cyan);
+  border-left: 3px solid var(--yellow);
   clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
 }
 .msg .msg-name {
   display: block;
   font-family: var(--head);
-  color: var(--cyan);
+  color: var(--yellow);
   font-size: 0.7rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   margin-bottom: 0.25rem;
+  text-shadow: 0 0 8px rgba(252, 238, 10, 0.5);
 }
 .msg.pending { color: var(--dim); animation: blink 1s infinite steps(2); }
+
+@keyframes blink { 50% { opacity: 0.25; } }
 
 .chat-form {
   display: flex;
   gap: 0.7rem;
-  align-items: center;
+  align-items: stretch;
 }
-.chat-form input { flex: 1; }
-.chat-form .btn-clear { flex-shrink: 0; width: 2.2rem; }
+.chat-form textarea { flex: 1; }
+.chat-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+.chat-buttons .btn-clear { align-self: flex-end; }
 
 #chat-note { margin-top: 0.6rem; }
 
@@ -461,9 +340,6 @@ textarea:focus, input:focus {
   padding: 0.6rem 0;
   border-top: 1px solid var(--edge);
 }
-.key-row[data-role="father"] input { border-left-color: var(--yellow); }
-.key-row[data-role="son"] input { border-left-color: var(--cyan); }
-.key-row[data-role="spirit"] input { border-left-color: var(--magenta); }
 
 .key-name { display: flex; flex-direction: column; line-height: 1.25; }
 .key-name strong {
@@ -475,16 +351,6 @@ textarea:focus, input:focus {
 .key-name span { color: var(--dim); font-size: 0.78rem; }
 .key-state { font-size: 0.72rem; font-style: normal; color: var(--red); }
 .key-state.saved { color: var(--cyan); }
-
-.btn-clear {
-  background: none;
-  border: 1px solid var(--edge);
-  color: var(--dim);
-  font-family: var(--mono);
-  cursor: pointer;
-  height: 2rem;
-}
-.btn-clear:hover { border-color: var(--red); color: var(--red); box-shadow: 0 0 8px rgba(255, 0, 60, 0.35); }
 
 .sacristy-actions {
   display: flex;
@@ -513,5 +379,7 @@ textarea:focus, input:focus {
 @media (max-width: 700px) {
   .temple-head h1 { font-size: 2.1rem; }
   .key-row { grid-template-columns: 1fr; }
-  .btn-clear { justify-self: start; width: 2.2rem; }
+  .key-row .btn-clear { justify-self: start; }
+  .chat-form { flex-direction: column; }
+  .chat-buttons { flex-direction: row; }
 }

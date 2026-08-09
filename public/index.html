@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>iluminati // Cyberdeck der Trinität</title>
+  <title>iluminati // Cyberdeck des Vaters</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,10 95,88 5,88' fill='none' stroke='%23c9a227' stroke-width='6'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,10 95,88 5,88' fill='none' stroke='%23fcee0a' stroke-width='6'/%3E%3C/svg%3E" />
 </head>
 <body>
 
@@ -21,78 +21,25 @@
       </g>
     </svg>
     <h1 class="glitch" data-text="iluminati">iluminati</h1>
-    <p class="subtitle">Cyberdeck der Trinität</p>
-    <p class="creed">// der Vater analysiert &nbsp;//&nbsp; der Sohn vertieft und prüft &nbsp;//&nbsp; der Heilige Geist geht vom Vater aus und vollendet //</p>
+    <p class="subtitle">Cyberdeck des Vaters</p>
+    <p class="creed">// eine Instanz &nbsp;//&nbsp; Venice.ai &nbsp;//&nbsp; der Vater spricht //</p>
   </header>
 
   <main>
 
-    <!-- Anrufung -->
-    <section class="altar" aria-label="Anfrage">
-      <label class="altar-label" for="query">Dein Anliegen an die Trinität</label>
-      <textarea id="query" rows="4" placeholder="> sprich, und die drei Instanzen werden antworten …"></textarea>
-      <div class="altar-actions">
-        <button id="invoke" class="btn-gold">Trinität anrufen</button>
-        <span id="altar-note" class="altar-note"></span>
-      </div>
-    </section>
-
-    <!-- Die drei Stufen -->
-    <section class="trinity" aria-label="Antwort der Trinität">
-
-      <article class="stage" id="stage-father" data-state="idle">
-        <header class="stage-head">
-          <span class="stage-numeral">I</span>
-          <div>
-            <h2>Vater</h2>
-            <p class="stage-provider">Venice.ai · Analyse</p>
-          </div>
-          <span class="stage-flame" aria-hidden="true"></span>
-        </header>
-        <div class="stage-body" data-empty="[KANAL VATER] bereit – noch kein Signal."></div>
-      </article>
-
-      <article class="stage" id="stage-son" data-state="idle">
-        <header class="stage-head">
-          <span class="stage-numeral">II</span>
-          <div>
-            <h2>Sohn</h2>
-            <p class="stage-provider">xAI · Vertiefung &amp; Prüfung</p>
-          </div>
-          <span class="stage-flame" aria-hidden="true"></span>
-        </header>
-        <div class="stage-body" data-empty="[KANAL SOHN] wartet auf das Wort des Vaters."></div>
-      </article>
-
-      <article class="stage stage-final" id="stage-spirit" data-state="idle">
-        <header class="stage-head">
-          <span class="stage-numeral">III</span>
-          <div>
-            <h2>Heiliger Geist</h2>
-            <p class="stage-provider">Gemini · Synthese – geht allein vom Vater aus</p>
-          </div>
-          <span class="stage-flame" aria-hidden="true"></span>
-        </header>
-        <div class="stage-body" data-empty="[KANAL GEIST] wartet auf das Wort des Vaters."></div>
-      </article>
-
-    </section>
-
-    <!-- Zwiegespräch -->
+    <!-- Zwiegespräch mit dem Vater -->
     <section class="dialogue" aria-label="Zwiegespräch">
       <div class="dialogue-head">
-        <span class="altar-label">Zwiegespräch – sprich mit einer Instanz allein</span>
-        <nav class="dialogue-tabs" role="tablist">
-          <button class="tab active" data-role="father" role="tab">Vater</button>
-          <button class="tab" data-role="son" role="tab">Sohn</button>
-          <button class="tab" data-role="spirit" role="tab">Heiliger Geist</button>
-        </nav>
+        <span class="altar-label">Zwiegespräch mit dem Vater</span>
+        <span class="dialogue-provider">[KANAL VATER] Venice.ai</span>
       </div>
       <div id="chat-log" class="chat-log" data-empty="[KANAL OFFEN] noch herrscht Stille – sende das erste Signal."></div>
       <form id="chat-form" class="chat-form">
-        <input type="text" id="chat-input" placeholder="Dein Wort an den Vater …" autocomplete="off" />
-        <button type="submit" class="btn-gold" id="chat-send">Senden</button>
-        <button type="button" class="btn-clear" id="chat-clear" title="Gespräch löschen">✕</button>
+        <textarea id="chat-input" rows="2" placeholder="> dein Wort an den Vater …"></textarea>
+        <div class="chat-buttons">
+          <button type="submit" class="btn-gold" id="chat-send">Senden</button>
+          <button type="button" class="btn-clear" id="chat-clear" title="Gespräch löschen">✕</button>
+        </div>
       </form>
       <p id="chat-note" class="altar-note"></p>
     </section>
@@ -101,8 +48,8 @@
     <section class="sacristy" aria-label="Schlüsselkammer">
       <details id="sacristy-details">
         <summary>
-          <span class="sacristy-title">⚿ Schlüsselkammer // Zugangscodes</span>
-          <span class="sacristy-hint">API-Schlüssel werden dauerhaft auf diesem Deck bewahrt</span>
+          <span class="sacristy-title">⚿ Schlüsselkammer // Zugangscode</span>
+          <span class="sacristy-hint">der API-Schlüssel wird dauerhaft auf diesem Deck bewahrt</span>
         </summary>
 
         <form id="keys-form">
@@ -116,39 +63,19 @@
             <button type="button" class="btn-clear" data-role="father" title="Schlüssel löschen">✕</button>
           </div>
 
-          <div class="key-row" data-role="son">
-            <div class="key-name">
-              <strong>Sohn</strong><span>xAI</span>
-              <em class="key-state" id="state-son">kein Schlüssel</em>
-            </div>
-            <input type="password" id="key-son" placeholder="xAI API-Schlüssel" autocomplete="off" />
-            <input type="text" id="model-son" placeholder="Modell" autocomplete="off" />
-            <button type="button" class="btn-clear" data-role="son" title="Schlüssel löschen">✕</button>
-          </div>
-
-          <div class="key-row" data-role="spirit">
-            <div class="key-name">
-              <strong>Heiliger Geist</strong><span>Gemini</span>
-              <em class="key-state" id="state-spirit">kein Schlüssel</em>
-            </div>
-            <input type="password" id="key-spirit" placeholder="Gemini API-Schlüssel" autocomplete="off" />
-            <input type="text" id="model-spirit" placeholder="Modell" autocomplete="off" />
-            <button type="button" class="btn-clear" data-role="spirit" title="Schlüssel löschen">✕</button>
-          </div>
-
           <div class="sacristy-actions">
             <button type="submit" class="btn-gold">Bewahren</button>
             <span id="sacristy-note" class="altar-note"></span>
           </div>
-          <p class="sacristy-fine">Leere Felder lassen bereits bewahrte Schlüssel unberührt.
-            Die Schlüssel verlassen diesen Rechner nur in Richtung des jeweiligen Anbieters.</p>
+          <p class="sacristy-fine">Ein leeres Feld lässt einen bereits bewahrten Schlüssel unberührt.
+            Der Schlüssel verlässt diesen Rechner nur in Richtung Venice.ai.</p>
         </form>
       </details>
     </section>
 
   </main>
 
-  <footer class="temple-foot">△ trium in unum // signal ende</footer>
+  <footer class="temple-foot">△ pater unus // signal ende</footer>
 
   <script src="app.js"></script>
 </body>

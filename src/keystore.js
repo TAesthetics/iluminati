@@ -1,6 +1,6 @@
-// Schlüsselkammer: dauerhafte Ablage der drei API-Schlüssel und Modellwahl.
+// Schlüsselkammer: dauerhafte Ablage des Venice.ai-Schlüssels und der Modellwahl.
 // Gespeichert wird in data/keys.json (per .gitignore vom Repository ausgeschlossen,
-// Dateirechte 0600), damit der Benutzer die Schlüssel nur einmal eingeben muss.
+// Dateirechte 0600), damit der Benutzer den Schlüssel nur einmal eingeben muss.
 
 import { mkdirSync, readFileSync, writeFileSync, chmodSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -10,16 +10,14 @@ const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DATA_DIR = join(ROOT, "data");
 const KEYS_FILE = join(DATA_DIR, "keys.json");
 
-export const ROLES = ["father", "son", "spirit"];
+export const ROLES = ["father"];
 
 export const DEFAULT_MODELS = {
   father: "llama-3.3-70b",
-  son: "grok-4",
-  spirit: "gemini-2.5-flash",
 };
 
 function emptyStore() {
-  return { keys: { father: "", son: "", spirit: "" }, models: { ...DEFAULT_MODELS } };
+  return { keys: { father: "" }, models: { ...DEFAULT_MODELS } };
 }
 
 export function loadStore() {
@@ -39,6 +37,13 @@ export function loadStore() {
   }
 }
 
+function persist(store) {
+  mkdirSync(DATA_DIR, { recursive: true });
+  writeFileSync(KEYS_FILE, JSON.stringify(store, null, 2), "utf8");
+  chmodSync(KEYS_FILE, 0o600);
+  return store;
+}
+
 export function saveStore(update) {
   const store = loadStore();
   for (const role of ROLES) {
@@ -48,19 +53,14 @@ export function saveStore(update) {
     const model = update?.models?.[role];
     if (typeof model === "string" && model.trim()) store.models[role] = model.trim();
   }
-  mkdirSync(DATA_DIR, { recursive: true });
-  writeFileSync(KEYS_FILE, JSON.stringify(store, null, 2), "utf8");
-  chmodSync(KEYS_FILE, 0o600);
-  return store;
+  return persist(store);
 }
 
 export function clearKey(role) {
   const store = loadStore();
   if (ROLES.includes(role)) {
     store.keys[role] = "";
-    mkdirSync(DATA_DIR, { recursive: true });
-    writeFileSync(KEYS_FILE, JSON.stringify(store, null, 2), "utf8");
-    chmodSync(KEYS_FILE, 0o600);
+    persist(store);
   }
   return store;
 }

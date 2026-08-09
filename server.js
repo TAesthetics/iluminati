@@ -1,14 +1,13 @@
-// iluminati – digitaler Tempel der Trinität
+// iluminati – digitaler Tempel des Vaters (Venice.ai)
 // Startet den lokalen Tempel: statische Oberfläche + API.
 //   npm start   (oder: node server.js)   →  http://localhost:7777
 
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
-import { join, extname, normalize } from "node:path";
-import { dirname } from "node:path";
+import { join, extname, normalize, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadStore, saveStore, clearKey, publicView, ROLES } from "./src/keystore.js";
-import { invokeTrinity, chatWithRole, STAGES, stageInfo } from "./src/trinity.js";
+import { chatWithFather, FATHER } from "./src/father.js";
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const PUBLIC_DIR = join(ROOT, "public");
@@ -56,53 +55,8 @@ async function serveStatic(req, res) {
   }
 }
 
-// POST /api/invoke – führt die dreistufige Kette aus und streamt die
-// Stufen als NDJSON (eine JSON-Zeile pro Ereignis) an die Oberfläche.
-async function handleInvoke(req, res) {
-  let body;
-  try {
-    body = await readBody(req);
-  } catch {
-    return sendJson(res, 400, { error: "Ungültige Anfrage." });
-  }
-  const query = typeof body.query === "string" ? body.query.trim() : "";
-  if (!query) return sendJson(res, 400, { error: "Die Anfrage ist leer." });
-
-  const store = loadStore();
-  const missing = ROLES.filter((role) => !store.keys[role]);
-  if (missing.length) {
-    return sendJson(res, 409, {
-      error: "Es fehlen API-Schlüssel.",
-      missing: missing.map((role) => stageInfo(role).name),
-    });
-  }
-
-  res.writeHead(200, {
-    "Content-Type": "application/x-ndjson; charset=utf-8",
-    "Cache-Control": "no-cache",
-    "X-Accel-Buffering": "no",
-  });
-  const emit = (event) => res.write(JSON.stringify(event) + "\n");
-
-  const abort = new AbortController();
-  req.on("close", () => abort.abort());
-
-  try {
-    await invokeTrinity(
-      query,
-      store,
-      (role, phase, text) => emit({ type: "stage", role, phase, text }),
-      abort.signal
-    );
-    emit({ type: "done" });
-  } catch (err) {
-    emit({ type: "error", message: err.message });
-  }
-  res.end();
-}
-
-// POST /api/chat – Zwiegespräch mit einer einzelnen Instanz.
-// Erwartet { role, messages: [{ role: "user"|"assistant", content }] }.
+// POST /api/chat – Zwiegespräch mit dem Vater.
+// Erwartet { messages: [{ role: "user"|"assistant", content }] }.
 async function handleChat(req, res) {
   let body;
   try {
@@ -110,8 +64,6 @@ async function handleChat(req, res) {
   } catch {
     return sendJson(res, 400, { error: "Ungültige Anfrage." });
   }
-  const role = body.role;
-  if (!ROLES.includes(role)) return sendJson(res, 400, { error: "Unbekannte Rolle." });
 
   const messages = (Array.isArray(body.messages) ? body.messages : [])
     .filter(
@@ -127,17 +79,17 @@ async function handleChat(req, res) {
   }
 
   const store = loadStore();
-  if (!store.keys[role]) {
+  if (!store.keys.father) {
     return sendJson(res, 409, {
-      error: "Es fehlen API-Schlüssel.",
-      missing: [stageInfo(role).name],
+      error: "Es fehlt der API-Schlüssel.",
+      missing: [FATHER.name],
     });
   }
 
   const abort = new AbortController();
   req.on("close", () => abort.abort());
   try {
-    const reply = await chatWithRole(role, store, messages, abort.signal);
+    const reply = await chatWithFather(store, messages, abort.signal);
     return sendJson(res, 200, { reply });
   } catch (err) {
     return sendJson(res, 502, { error: err.message });
@@ -168,10 +120,6 @@ const server = createServer(async (req, res) => {
     return sendJson(res, 200, publicView());
   }
 
-  if (path === "/api/invoke" && req.method === "POST") {
-    return handleInvoke(req, res);
-  }
-
   if (path === "/api/chat" && req.method === "POST") {
     return handleChat(req, res);
   }
@@ -186,9 +134,6 @@ const server = createServer(async (req, res) => {
 server.listen(PORT, () => {
   console.log(`△ iluminati – der Tempel ist geöffnet: http://localhost:${PORT}`);
   const view = publicView();
-  for (const role of STAGES) {
-    const { name, provider } = stageInfo(role);
-    const state = view.keys[role].saved ? "Schlüssel hinterlegt" : "Schlüssel fehlt";
-    console.log(`  ${name} (${provider}): ${state}`);
-  }
+  const state = view.keys.father.saved ? "Schlüssel hinterlegt" : "Schlüssel fehlt";
+  console.log(`  ${FATHER.name} (${FATHER.provider}): ${state}`);
 });
